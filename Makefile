@@ -1,4 +1,5 @@
-HW-OFST-ALL.zip:
-	cd ..; rm -f $@ hw-ofst/$@; zip -r $@ hw-ofst -x hw-ofst/.gitignore hw-ofst/.git/\* hw-ofst/answer_keys/\* Makefile; chmod a+r $@; mv $@ hw-ofst
+binary.far: binary.grm 
+	thraxcompiler --save_symbols --input_grammar=$< --output_far=$@
 
-.PHONY: *.zip
+clean:
+	rm -f 
