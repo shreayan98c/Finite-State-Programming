@@ -1,2 +1,8 @@
 export Cross = "a" (("b":"x")* | ("c"+ : "y"*) | ("":"fric")) "a";
 export CrossOpt = Optimize["a" (("b":"x")* | ("c"+ : "y"*) | ("":"fric")) "a"];
+
+Zero = "0";
+One = "1";
+Bit = Zero | One;
+
+export BitFlip1 = ((Zero:One)|(One:Zero))*;
