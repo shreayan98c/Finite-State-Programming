@@ -1,0 +1,2 @@
+export Cross = "a" (("b":"x")* | ("c"+ : "y"*) | ("":"fric")) "a";
+export CrossOpt = Optimize["a" (("b":"x")* | ("c"+ : "y"*) | ("":"fric")) "a"];
