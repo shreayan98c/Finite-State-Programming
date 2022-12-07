@@ -19,3 +19,7 @@ export Parity1 = ((Even:Zero)|(Odd:One));
 export Parity2 = ((EvenRev:Zero)|(OddRev:One));
 export Parity3 = CDRewrite[((Even:Zero)|(Odd:One)), "[BOS]", "[EOS]", Bit*];
 export UnParity = Invert[Parity3];
+
+export Split = CDRewrite["":" ", Bit+, Bit+ ,   (Bit | (" "))* | "", 'ltr', 'opt'];
+Three = Bit+ " " Bit+ " " Bit+;
+export SplitThree = Split @ Three;
