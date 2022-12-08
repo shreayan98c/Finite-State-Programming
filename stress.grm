@@ -34,3 +34,5 @@ export Stress = RightStressRemoved @ CDRewrite[RemoveStressLeft, Consonant* "'" 
 
 # Only write the stress words
 export StressWords = CDRewrite[Stress, ("[BOS]" | " "), (" " | "[EOS]"), Alphabet*, 'ltr', 'obl'];
+
+export InvertStress = Invert[Stress];
