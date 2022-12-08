@@ -1,0 +1,36 @@
+import 'byte.grm' as bytelib;   # copy this file from grammars/byte.grm
+Letter = bytelib.kAlpha;        # kAlpha is defined in byte.grm
+Sigma = Letter | "'";           # alphabet also includes stress mark
+Vowel = "a" | "e" | "i" | "o" | "u" | "A" | "E" | "I" | "O" | "U";
+Consonant = Letter - Vowel;
+Nucleus = Vowel+;
+
+# YOU WILL FILL IN THE REST
+syllable = Consonant* Nucleus Consonant*;
+export AddStress =  (("":"'") Vowel) | (("'":"'") Vowel);
+# Remove stress towards the right of a vowel
+export RemoveStressRight =  Vowel ("'":"");
+# Remove stress towards the left of a vowel
+export RemoveStressLeft = ("'":"") Vowel;
+
+# Using Rule 1 and 2
+# Stress can be added only if the left context is [BOS] or any number of consonants
+# Using Rule 1, 2 and 3
+# Stress can be added only if the nucleus hasn't been stressed yet
+LeftContext = (Consonant* Nucleus Consonant* | "[BOS]" | "[BOS]" Consonant+ );
+
+# Using Rule 1 and 2
+# Stress can be added only if the right context is any number of vowels and consonants followed by [EOS]
+# Using Rule 1, 2 and 3
+# Stress can be added only if the nucleus hasn't been stressed yet
+RightContext = (Vowel* Consonant+ Vowel+ | Consonant+ "[EOS]" | Vowel+ Consonant+ "[EOS]");
+
+# Add all stresses
+export AddAllStress = CDRewrite[AddStress, LeftContext, RightContext, Sigma*,'ltr','obl'];
+# Remove right stresses to the vowel
+export RightStressRemoved = AddAllStress @ CDRewrite[RemoveStressRight, "", "", Sigma*,'ltr','obl'];
+# Remove left stresses to the vowel
+export Stress = RightStressRemoved @ CDRewrite[RemoveStressLeft, Consonant* "'" Nucleus Consonant*  , Letter* , Sigma*,'ltr','obl'];
+
+# Only write the stress words
+export StressWords = CDRewrite[Stress, ("[BOS]" | " "), (" " | "[EOS]"), Alphabet*, 'ltr', 'obl'];
