@@ -21,7 +21,7 @@ export Stress = Optimize[Stress1 @ Stress2];
 export InvertStress = Invert[Stress];
 
 # Apply stress to sentence
-export StressWords = CDRewrite[Stress, ("[BOS]" | (bytelib.kPunct - "'") | bytelib.kSpace), ("[EOS]" | (bytelib.kPunct | bytelib.kSpace), bytelib.kBytes*, 'sim', 'obl'];
+export StressWords = CDRewrite[Stress, ("[BOS]" | (bytelib.kPunct - "'") | bytelib.kSpace), ("[EOS]" | bytelib.kPunct | bytelib.kSpace), bytelib.kBytes*, 'sim', 'obl'];
 
 # Replace vowel Y's with filler symbols when followed by EOS or consonants only
 export VoweledYs = CDRewrite[("y": "^")|("Y": "~"), "", ("[EOS]" | Consonant), Sigma*, 'sim', 'obl'];
