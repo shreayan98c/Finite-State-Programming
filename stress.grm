@@ -11,17 +11,29 @@ Nucleus = Vowel+;
 # Add stress before the nucleus if:
 # 1. either BOS and optional consonant OR a previous unstressed nucleus is to the left
 # 2. future unstressed nucleus is to the right
-export Stress1 = CDRewrite["":"'", (("[BOS]" (Consonant+)?) | (Consonant Nucleus Consonant+)), Nucleus Consonant+ Nucleus, Sigma*, 'ltr', 'obl'];
+export Stress1 = CDRewrite["":"'",
+                           (("[BOS]" (Consonant+)?) | (Consonant Nucleus Consonant+)),
+                           Nucleus Consonant+ Nucleus,
+                           Sigma*,
+                           'ltr', 'obl'];
 
 # If the word is not stressed, add stress to first nucleus
-export Stress2 = CDRewrite["":"'", "[BOS]" (Letter | "^" | "~")*, Nucleus (Letter | "^" | "~")* "[EOS]", Sigma*, 'ltr', 'obl'];
+export Stress2 = CDRewrite["":"'",
+                           "[BOS]" (Letter | "^" | "~")*,
+                           Nucleus (Letter | "^" | "~")* "[EOS]",
+                           Sigma*,
+                           'ltr', 'obl'];
 
 # Compose
 export Stress = Optimize[Stress1 @ Stress2];
 export InvertStress = Invert[Stress];
 
 # Apply stress to sentence
-export StressWords = CDRewrite[Stress, ("[BOS]" | (bytelib.kPunct - "'") | bytelib.kSpace), ("[EOS]" | bytelib.kPunct | bytelib.kSpace), bytelib.kBytes*, 'sim', 'obl'];
+export StressWords = CDRewrite[Stress,
+                               ("[BOS]" | (bytelib.kPunct - "'") | bytelib.kSpace),
+                               ("[EOS]" | (bytelib.kPunct - "'") | bytelib.kSpace),
+                               bytelib.kBytes*,
+                               'sim', 'obl'];
 
 # Replace vowel Y's with filler symbols when followed by EOS or consonants only
 export VoweledYs = CDRewrite[("y": "^")|("Y": "~"), "", ("[EOS]" | Consonant), Sigma*, 'sim', 'obl'];
