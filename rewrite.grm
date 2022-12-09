@@ -16,7 +16,8 @@ EvenRev = Zero Bit*;
 OddRev = One Bit*;
 
 export Parity1 = ((Even:Zero)|(Odd:One));
-export Parity2 = ((EvenRev:Zero)|(OddRev:One));
+ParityRep = (Zero|One) (Bit*:"");
+export Parity2 = Reverse[ParityRep];
 export Parity3 = CDRewrite[((Even:Zero)|(Odd:One)), "[BOS]", "[EOS]", Bit*];
 export UnParity = Invert[Parity3];
 

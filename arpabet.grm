@@ -1,0 +1,82 @@
+arpa = SymbolTable['arpabet.sym'];
+
+export Consonant = Optimize[
+    "B".arpa
+  | "CH".arpa
+  | "D".arpa
+  | "DH".arpa
+  | "F".arpa
+  | "G".arpa
+  | "HH".arpa
+  | "JH".arpa
+  | "K".arpa
+  | "L".arpa
+  | "M".arpa
+  | "N".arpa
+  | "NG".arpa
+  | "P".arpa
+  | "R".arpa
+  | "S".arpa
+  | "SH".arpa
+  | "T".arpa
+  | "TH".arpa
+  | "V".arpa
+  | "W".arpa
+  | "Y".arpa
+  | "Z".arpa
+  | "ZH".arpa
+];
+
+export Unstressed = Optimize[
+    "AA0".arpa
+  | "AE0".arpa
+  | "AH0".arpa
+  | "AO0".arpa
+  | "AW0".arpa
+  | "AY0".arpa
+  | "EH0".arpa
+  | "ER0".arpa
+  | "EY0".arpa
+  | "IH0".arpa
+  | "IY0".arpa
+  | "OW0".arpa
+  | "OY0".arpa
+  | "UH0".arpa
+  | "UW0".arpa
+];
+
+export Stressed = Optimize[
+    "AA1".arpa
+  | "AA2".arpa
+  | "AE1".arpa
+  | "AE2".arpa
+  | "AH1".arpa
+  | "AH2".arpa
+  | "AO1".arpa
+  | "AO2".arpa
+  | "AW1".arpa
+  | "AW2".arpa
+  | "AY1".arpa
+  | "AY2".arpa
+  | "EH1".arpa
+  | "EH2".arpa
+  | "ER1".arpa
+  | "ER2".arpa
+  | "EY1".arpa
+  | "EY2".arpa
+  | "IH1".arpa
+  | "IH2".arpa
+  | "IY1".arpa
+  | "IY2".arpa
+  | "OW1".arpa
+  | "OW2".arpa
+  | "OY1".arpa
+  | "OY2".arpa
+  | "UH1".arpa
+  | "UH2".arpa
+  | "UW1".arpa
+  | "UW2".arpa
+];
+
+export Vowel = Optimize[Unstressed | Stressed];
+export Phoneme = Optimize[Consonant | Vowel];
