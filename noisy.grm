@@ -25,3 +25,11 @@ export PossibleSpelling = Project[Spell, 'output'];
 
 # Form a random word
 export CompleteWord = RandomComplete @ PossibleSpelling @ FormWord @ LM;
+
+export DelSpaces = CDRewrite[" ":"", "", "", ByteSigmaStar, 'sim', 'obl'];
+export SpellText = (Spell ("".vocab : " ".byte))*;
+export PrintText = (OldSpell ("".vocab : " ".byte) | ("<unk>".vocab:"<unk>") ("".vocab : " ".byte))*;
+
+export InvLM = Invert[LM];
+export InvSpellText = Optimize[Invert[SpellText]];
+export InvDelSpaces = Optimize[Invert[DelSpaces]];
