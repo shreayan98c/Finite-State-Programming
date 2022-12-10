@@ -8,3 +8,7 @@ export Triplets = Optimize[(Zero* | (One{3} One*))*];
 export NotPillars = Optimize[Zero* One Zero*(Zero* One Zero* One Zero*)*];
 export Oddlets = Optimize[Zero* | ((Zero* One)+ Zero* (One{2})*)];
 export Test = Optimize[(Zero* One)+ Zero* (One{2})*];
+
+export WFlip = Optimize[((Zero : One <2>) | (Zero <1>)) ((Zero : Zero One <0.5>) | (One : Zero <0.4>))+ (One <0.5>)];
+export WeightedMultipath = (One : Zero <2>)+ (One : Zero <1>)+ (Zero <0.1>)+;
+export WeightedMultipathOpt = Optimize[WeightedMultipath];
