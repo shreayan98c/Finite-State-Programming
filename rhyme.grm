@@ -4,6 +4,7 @@ arpa = SymbolTable['arpabet.sym'];
 
 Pronounce = StringFile['cmudict.txt', byte, arpa];
 
+# Find out the ending phoneme of the given word
 export Ending = CDRewrite[arpabet.Phoneme:"".arpa,
                           "".arpa,
                           arpabet.Phoneme* arpabet.Stressed, arpabet.Phoneme*,
@@ -12,4 +13,5 @@ export Ending = CDRewrite[arpabet.Phoneme:"".arpa,
 export WordEnding = Optimize[Pronounce @ Ending];
 export InvWordEnding = Optimize[Invert[WordEnding]];
 
+# Get words with same ending phoneme
 # export SameEndingWord = Optimize[WordEnding @ Invert[WordEnding]];
