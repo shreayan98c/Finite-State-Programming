@@ -57,7 +57,7 @@ KeypadSix = "m" | "n" | "o";
 KeypadSeven = "p" | "q" | "r" | "s";
 KeypadEight = "t" | "u" | "v";
 KeypadNine = "w" | "x" | "y" | "z";
-export Telephone = CDRewrite[(KeypadTwo:"2") | (KeypadThree:"3") | (KeypadFour:"4") | (KeypadFive:"5") | (KeypadSix:"6") | (KeypadSeven:"7") | (KeypadEight:"8") | (KeypadNine:"9"), ", "", ByteSigmaStar, ’sim’, ’obl’];
+export Telephone = CDRewrite[(KeypadTwo:"2") | (KeypadThree:"3") | (KeypadFour:"4") | (KeypadFive:"5") | (KeypadSix:"6") | (KeypadSeven:"7") | (KeypadEight:"8") | (KeypadNine:"9"), "", "", ByteSigmaStar, ’sim’, ’obl’];
 
 # EC (e). Tinyphone
 AdjacentKeys = ("1":("2"|"4")) | ("2":("1"|"3"|"5")) | ("3":("2"|"6")) | ("4":("1"|"5"|"7")) | ("5":("2"|"4"|"6"|"8")) | ("6":("3"|"5"|"9")) | ("7":("4"|"8")) | ("8":("5"|"7"|"9"|"0")) | ("9":("6"|"8")) | ("0":"8");
