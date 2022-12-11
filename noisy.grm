@@ -39,3 +39,11 @@ export InvDelSpaces = Optimize[Invert[DelSpaces]];
 
 # EC (a). DelSomeSpaces
 export DelSomeSpaces = CDRewrite[bytelib.kSpace:"", "", "", \\ ByteSigmaStar, ’sim’, ’obl’];
+
+# EC (b). DelSuffixes
+Suffices = "acy" | "al" | "ance" | "ence" | "dom" | "er" | "or" | "ism" | "ist" | "ity" | "ty" | "ment" | "ness" | "ship" | "sion" | "tion" | "ate" | "en" | "ify" | "fy" | "ize" | "ise" | "able" | "ible" | "al" | "esque" | "ful" | "ic" | "ical" | "ious" | "ous" | "ish" | "ive" | "less" | "y";
+export DelSuffixes = CDRewrite[Suffices: "", "", "[EOS]", ByteSigmaStar, ’sim’, ’opt’];
+
+# EC (c). Typos
+CommonTypoList = ("d":"c") | ("e":"d") | ("f":("b"|"c"|"d"|"e")) | ("g":("b"|"f")) | ("h":("b"|"g")) | ("j":("h"|"i")) | ("k":("i"|"j")) | ("l":("i"|"k")) | ("m":("h"|"j"|"k")) | ("n":("b"|"g"|"h"|"j"|"m")) | ("o":("i"|"k"|"l")) | ("p":("l"|"o")) | ("q":"a") | ("r":("d"|"e"|"f"|"g")) | ("s":("a"|"c"|"d"|"e"|"q")) | ("t":("f"|"g"|"h"|"r")) | ("u":("h"|"i"|"j"|"k")) | ("v":("b"|"c"|"d"|"f"|"g")) | ("w":("a"|"d"|"e"|"q"|"s")) | ("x":("a"|"c"|"d"|"s")) | ("y":("g"|"h"|"j"|"t"|"u")) | ("z":("a"|"s"|"x"));
+export Typos = CDRewrite[CommonTypoList | Invert[CommonTypoList] , "", "", Sigma*, ’sim’, ’opt’];
