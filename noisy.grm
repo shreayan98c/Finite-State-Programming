@@ -1,9 +1,9 @@
-import 'byte.grm' as bytelib;        # load a simple grammar (.grm)
-ByteSigma = (bytelib.kSpace | bytelib.kGraph);  # printable characters
+import 'byte.grm' as bytelib;                       # load a simple grammar (.grm)
+ByteSigma = (bytelib.kSpace | bytelib.kGraph);      # printable characters
 ByteSigmaStar = Optimize[ByteSigma*];
 
-export LM = LoadFst['entrain.fst'];  # load trigram language model (.fst)
-vocab = SymbolTable['entrain.sym'];  # load model's symbol table (.sym)
+export LM = LoadFst['entrain.fst'];                 # load trigram language model (.fst)
+vocab = SymbolTable['entrain.sym'];                 # load model's symbol table (.sym)
 
 # YOU WILL FILL IN THE REST
 
@@ -13,22 +13,26 @@ RandomWord = Optimize[(RandomChar (RandomChar <0.1>)* ) <2.3>];
 SpellOOV = "<unk>".vocab : RandomWord;
 Spell = Optimize[StringFile['entrain.alpha', vocab, byte]] | SpellOOV;
 
-# Transduce byte to vocab
+# Transduce from byte to vocab to form words
 export FormWord = Optimize[StringFile['entrain.alpha', byte, vocab]];
 
-# Randomly complete the user input letters
+# Complete the input string at random
 export RandomComplete = CDRewrite["":ByteSigma*, "", "[EOS]", ByteSigmaStar, 'sim', 'obl'];
 
-# FSA that accept all possible spells.
+# Get the outputs from Spell FST to get all possible spellings
 export PossibleSpelling = Project[Spell, 'output'];
 
-# Form a random word
+# Generate a random word by composing all the above FSTs
 export CompleteWord = RandomComplete @ PossibleSpelling @ FormWord @ LM;
 
+# Delete Spaces and Spell Text
 export DelSpaces = CDRewrite[" ":"", "", "", ByteSigmaStar, 'sim', 'obl'];
 export SpellText = (Spell ("".vocab : " ".byte))*;
+
+# Print text using the Spell FST
 export PrintText = (OldSpell ("".vocab : " ".byte) | ("<unk>".vocab:"<unk>") ("".vocab : " ".byte))*;
 
+# Invert the LM defined above
 export InvLM = Invert[LM];
 export InvSpellText = Optimize[Invert[SpellText]];
 export InvDelSpaces = Optimize[Invert[DelSpaces]];
