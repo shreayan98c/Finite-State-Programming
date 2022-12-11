@@ -38,15 +38,15 @@ export InvSpellText = Optimize[Invert[SpellText]];
 export InvDelSpaces = Optimize[Invert[DelSpaces]];
 
 # EC (a). DelSomeSpaces
-export DelSomeSpaces = CDRewrite[bytelib.kSpace:"", "", "", \\ ByteSigmaStar, ’sim’, ’obl’];
+export DelSomeSpaces = CDRewrite[bytelib.kSpace:"", "", "", \\ ByteSigmaStar, 'sim', 'obl'];
 
 # EC (b). DelSuffixes
 Suffices = "acy" | "al" | "ance" | "ence" | "dom" | "er" | "or" | "ism" | "ist" | "ity" | "ty" | "ment" | "ness" | "ship" | "sion" | "tion" | "ate" | "en" | "ify" | "fy" | "ize" | "ise" | "able" | "ible" | "al" | "esque" | "ful" | "ic" | "ical" | "ious" | "ous" | "ish" | "ive" | "less" | "y";
-export DelSuffixes = CDRewrite[Suffices: "", "", "[EOS]", ByteSigmaStar, ’sim’, ’opt’];
+export DelSuffixes = CDRewrite[Suffices: "", "", "[EOS]", ByteSigmaStar, 'sim', 'opt'];
 
 # EC (c). Typos
 CommonTypoList = ("d":"c") | ("e":"d") | ("f":("b"|"c"|"d"|"e")) | ("g":("b"|"f")) | ("h":("b"|"g")) | ("j":("h"|"i")) | ("k":("i"|"j")) | ("l":("i"|"k")) | ("m":("h"|"j"|"k")) | ("n":("b"|"g"|"h"|"j"|"m")) | ("o":("i"|"k"|"l")) | ("p":("l"|"o")) | ("q":"a") | ("r":("d"|"e"|"f"|"g")) | ("s":("a"|"c"|"d"|"e"|"q")) | ("t":("f"|"g"|"h"|"r")) | ("u":("h"|"i"|"j"|"k")) | ("v":("b"|"c"|"d"|"f"|"g")) | ("w":("a"|"d"|"e"|"q"|"s")) | ("x":("a"|"c"|"d"|"s")) | ("y":("g"|"h"|"j"|"t"|"u")) | ("z":("a"|"s"|"x"));
-export Typos = CDRewrite[CommonTypoList | Invert[CommonTypoList] , "", "", Sigma*, ’sim’, ’opt’];
+export Typos = CDRewrite[CommonTypoList | Invert[CommonTypoList] , "", "", Sigma*, 'sim', 'opt'];
 
 # EC (d). Telephone
 KeypadTwo = "a" | "b" | "c";
@@ -57,12 +57,12 @@ KeypadSix = "m" | "n" | "o";
 KeypadSeven = "p" | "q" | "r" | "s";
 KeypadEight = "t" | "u" | "v";
 KeypadNine = "w" | "x" | "y" | "z";
-export Telephone = CDRewrite[(KeypadTwo:"2") | (KeypadThree:"3") | (KeypadFour:"4") | (KeypadFive:"5") | (KeypadSix:"6") | (KeypadSeven:"7") | (KeypadEight:"8") | (KeypadNine:"9"), "", "", ByteSigmaStar, ’sim’, ’obl’];
+export Telephone = CDRewrite[(KeypadTwo:"2") | (KeypadThree:"3") | (KeypadFour:"4") | (KeypadFive:"5") | (KeypadSix:"6") | (KeypadSeven:"7") | (KeypadEight:"8") | (KeypadNine:"9"), "", "", ByteSigmaStar, 'sim', 'obl'];
 
 # EC (e). Tinyphone
 AdjacentKeys = ("1":("2"|"4")) | ("2":("1"|"3"|"5")) | ("3":("2"|"6")) | ("4":("1"|"5"|"7")) | ("5":("2"|"4"|"6"|"8")) | ("6":("3"|"5"|"9")) | ("7":("4"|"8")) | ("8":("5"|"7"|"9"|"0")) | ("9":("6"|"8")) | ("0":"8");
 DoublePress = ("1":"11") | ("2":"22") | ("3":"33") | ("4":"44") | ("5":"55") | ("6":"66") | ("7":"77") | ("8":"88") | ("9":"99") | ("0":"00");
-CellTypo = CDRewrite[(bytelib.kDigit:"") | AdjacentKeys | DoublePress, "", "", ByteSigmaStar, ’sim’, ’opt’];
+CellTypo = CDRewrite[(bytelib.kDigit:"") | AdjacentKeys | DoublePress, "", "", ByteSigmaStar, 'sim', 'opt'];
 export Tinyphone = Telephone @ CellTypo;
 
 # EC (f). QWERTY Typo - Compose the common typo list FST with telephone FST to test if the user has connected a
