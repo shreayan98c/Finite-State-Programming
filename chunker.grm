@@ -5,18 +5,27 @@ Sigma = (tags.Tags) | (bytelib.kBytes);
 SigmaStar = Optimize[Sigma*];
 
 # YOU WILL FILL IN THE REST
+
+# Accepts NPs
 export NP = Optimize[("Art"|"Quant")? "Adj"* "Noun"+];
+
+# Make NMod out of the given NP
 export MakeNmod = CDRewrite[("Noun":"Nmod"), "", "Noun", tags.Tags*, 'ltr', 'obl'];
 export TransformNP = Optimize[NP @ MakeNmod];
+
+# Add bracketings to the NP
 export BracketNP = ("" : "<") NP ("" : ">");
+
+# Add transformations and store the bracket results
 export Brackets1 = Optimize[SigmaStar (BracketNP SigmaStar)*];
 export Brackets2 = CDRewrite[BracketNP, "", "", SigmaStar,'sim','obl'];
 export BracketTransform = Optimize[Brackets2 @ CDRewrite[TransformNP, "<", ">", SigmaStar, 'sim', 'obl']];
 export NPV = Optimize[ "Quant" "Noun"+ "Verb"];
 export BracketResults = Optimize[Project[ NPV @ BracketTransform, 'output']];
 
-fst1 = Optimize[(("Noun":"Nmod") | Sigma)*];
-fst2 = Optimize[ SigmaStar (("Noun" "Noun")|("Noun" "Nmod"))* SigmaStar];
-fst3 = Optimize[ SigmaStar (("Nmod" "Noun")|("Nmod" "Nmod"))* SigmaStar];
-#fst3 = Optimize[ SigmaStar - (SigmaStar "Nmod" (SigmaStar-(("Noun"|"Nmod") SigmaStar)))];
-export TransformNP2 = Optimize[(Project[ NP @ fst1, 'output']-fst2)@fst3];
+# EC - transform the NP2
+Intermediate1 = Optimize[(("Noun":"Nmod") | Sigma)*];
+Intermediate2 = Optimize[ SigmaStar (("Noun" "Noun")|("Noun" "Nmod"))* SigmaStar];
+Intermediate3 = Optimize[ SigmaStar (("Nmod" "Noun")|("Nmod" "Nmod"))* SigmaStar];
+#Intermediate3 = Optimize[ SigmaStar - (SigmaStar "Nmod" (SigmaStar-(("Noun"|"Nmod") SigmaStar)))];
+export TransformNP2 = Optimize[(Project[ NP @ Intermediate1, 'output']-Intermediate2)@Intermediate3];
