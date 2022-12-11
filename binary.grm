@@ -12,3 +12,6 @@ export Test = Optimize[(Zero* One)+ Zero* (One{2})*];
 export WFlip = Optimize[((Zero : One <2>) | (Zero <1>)) ((Zero : Zero One <0.5>) | (One : Zero <0.4>))+ (One <0.5>)];
 export WeightedMultipath = (One : Zero <2>)+ (One : Zero <1>)+ (Zero <0.1>)+;
 export WeightedMultipathOpt = Optimize[WeightedMultipath];
+
+# EC - No Det
+export NoDet = (One <0>) ((Zero <0>)* | (Zero <1>)* ) ((One <1>) | (Zero <0>));
