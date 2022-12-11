@@ -13,7 +13,7 @@ RandomWord = Optimize[(RandomChar (RandomChar <0.1>)* ) <2.3>];
 SpellOOV = "<unk>".vocab : RandomWord;
 Spell = Optimize[StringFile['entrain.alpha', vocab, byte]] | SpellOOV;
 
-# Transduce from byte to vocab to form words
+# Optimize and transduce from byte to vocab to form words
 export FormWord = Optimize[StringFile['entrain.alpha', byte, vocab]];
 
 # Complete the input string at random
