@@ -36,3 +36,6 @@ export PrintText = (OldSpell ("".vocab : " ".byte) | ("<unk>".vocab:"<unk>") (""
 export InvLM = Invert[LM];
 export InvSpellText = Optimize[Invert[SpellText]];
 export InvDelSpaces = Optimize[Invert[DelSpaces]];
+
+# EC (a). DelSomeSpaces
+export DelSomeSpaces = CDRewrite[bytelib.kSpace:"", "", "", \\ ByteSigmaStar, ’sim’, ’obl’];
