@@ -46,7 +46,7 @@ export DelSuffixes = CDRewrite[Suffices:"", "", "[EOS]", ByteSigmaStar, 'sim', '
 
 # EC (c). Typos
 CommonTypoList = ("d":"c") | ("e":"d") | ("f":("b"|"c"|"d"|"e")) | ("g":("b"|"f")) | ("h":("b"|"g")) | ("j":("h"|"i")) | ("k":("i"|"j")) | ("l":("i"|"k")) | ("m":("h"|"j"|"k")) | ("n":("b"|"g"|"h"|"j"|"m")) | ("o":("i"|"k"|"l")) | ("p":("l"|"o")) | ("q":"a") | ("r":("d"|"e"|"f"|"g")) | ("s":("a"|"c"|"d"|"e"|"q")) | ("t":("f"|"g"|"h"|"r")) | ("u":("h"|"i"|"j"|"k")) | ("v":("b"|"c"|"d"|"f"|"g")) | ("w":("a"|"d"|"e"|"q"|"s")) | ("x":("a"|"c"|"d"|"s")) | ("y":("g"|"h"|"j"|"t"|"u")) | ("z":("a"|"s"|"x"));
-export Typos = CDRewrite[CommonTypoList | Invert[CommonTypoList] , "", "", Sigma*, 'sim', 'opt'];
+export Typos = CDRewrite[CommonTypoList | Invert[CommonTypoList] , "", "", ByteSigmaStar, 'sim', 'opt'];
 
 # EC (d). Telephone
 KeypadTwo = "a" | "b" | "c";
